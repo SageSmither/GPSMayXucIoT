@@ -17,6 +17,9 @@ const io = new Server(server, {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(express.static('./public'));
+app.set('view engine', 'ejs');
+app.set('views', './views');
 
 var corsOptions = {
   origin: '*',
@@ -31,6 +34,6 @@ app.use(express.static(path.join(__dirname, 'uploads')));
 connectDB();
 router(app);
 
-server.listen(3000, () => {
-  console.log('run 3000');
+server.listen(5000, () => {
+  console.log('run 5000');
 });
