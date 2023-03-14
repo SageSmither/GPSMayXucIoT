@@ -1,0 +1,60 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+<% if (excavators) { %>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 text-cente" style="justify-content: space-around;">
+        <% excavators.forEach(function(ex){ %>
+            <div class="card col" style="width: 18rem;">
+                <img src="https://blog.rce.global/content/images/size/w2000/2021/02/large-construction-excavator-yellow-color-construction-site-quarry-quarrying-industrial-image_168410-366.jpg"
+                    class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <%=ex.name %>
+                    </h5>
+                    <p class="card-text">
+                        <%=ex.description %>
+                    </p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Color: <%=ex.color %>
+                    </li>
+                    <li class="list-group-item">Status: <%=ex.status %>
+                    </li>
+                    <li class="list-group-item">Location: <%=ex.location %>
+                    </li>
+                </ul>
+                <div class="card-body">
+                    <a href="#" class="card-link">Xem lịch sử</a>
+                    <div class="form-check form-switch">
+                        <% if (ex.status===0) { %>
+                            <input class="form-check-input" type="checkbox" role="switch" id="<%- ex._id %>"
+                                onclick="switchStatus('<%- ex._id %>')">
+                            <label id="lb<%- ex._id %>" class="form-check-label" for="<%- ex._id %>"
+                                onclick="switchStatus('<%- ex._id %>')">
+                                Off
+                            </label>
+                            <% } else {%>
+                                <input class="form-check-input" checked type="checkbox" role="switch" id="<%- ex._id %>"
+                                    onclick="switchStatus('<%- ex._id %>')">
+                                <label id="lb<%- ex._id %>" class="form-check-label" for="<%- ex._id %>"
+                                    onclick="switchStatus('<%- ex._id %>')">
+                                    On
+                                </label>
+                                <% } %>
+
+                    </div>
+                </div>
+            </div>
+            <%}); %>
+    </div>
+    <% } %>
+
+        <ul id="thread"></ul>
+
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="js/client.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+            crossorigin="anonymous"></script>

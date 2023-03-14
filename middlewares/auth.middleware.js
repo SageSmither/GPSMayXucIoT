@@ -6,9 +6,15 @@ const ErrorResponse = require('../helpers/ErrorResponse');
 module.exports = async (req, res, next) => {
   const { authorization } = req.headers;
   if (!authorization || !authorization.startsWith('Bearer ')) {
+    // throw new ErrorResponse(403, 'Unauthorized');
+  }
+  let token = authorization?.split(' ')[1];
+  if (!token) {
+    token = req.cookies['token'];
+  }
+  if (!token) {
     throw new ErrorResponse(403, 'Unauthorized');
   }
-  const token = authorization.split(' ')[1];
   const decode = jwt.verify(token, configuration.SECRET_KEY);
   const account = await accountModel.findById(decode._id);
   if (!account) {

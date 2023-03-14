@@ -5,7 +5,7 @@ const exModel = require('../models/Excavator.model');
 module.exports = {
   getHisOfEx: async (req, res) => {
     const idAcc = req.account._id;
-    const idEx = req.params.id_ex;
+    const idEx = req.params.id;
 
     const ex = await exModel.findOne({
       _id: idEx,
@@ -33,5 +33,14 @@ module.exports = {
       total_page: Math.ceil(count / perPage),
       histories: his,
     });
+  },
+  createHisOfEx: async ({ body }) => {
+    const newHis = await hisModel.create(body);
+    return newHis;
+  },
+  deleteHis: async (req, res) => {
+    const id = req.params.id;
+    const result = await hisModel.findByIdAndDelete(id);
+    return res.status(200).json(result);
   },
 };
